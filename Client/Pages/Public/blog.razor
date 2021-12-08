@@ -11,19 +11,39 @@
 
     <div class="row">
 
-        <div class="col-md-4">
-            <CategoryCard />
-        </div>
-
-        <div class="col-md-4">
-            <CategoryCard />
-        </div>
-
-        <div class="col-md-4">
-            <CategoryCard />
-        </div>
+        @if (InMemoryDatabaseCache.Categories != null)
+        {
+            for (var i = 0; i < InMemoryDatabaseCache.Categories.Count; i++)
+            {
+                <div class="col-md-4">
+                    <CategoryCard />
+                </div>
+            }
+        }
 
     </div>
 </main>
 
 <Client.Components.Public.Shared.Footer />
+
+@implements IDisposable
+@code
+{
+    [Inject] InMemoryDatabaseCache InMemoryDatabaseCache { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        InMemoryDatabaseCache.OnCategoriesDataChanged += StateHasChanged;
+
+        if (InMemoryDatabaseCache.Categories == null)
+        {
+            await InMemoryDatabaseCache.GetCategoriesFromDatabaseAndCache();
+        }
+    }
+
+    // unsub from events else we will have memory leak
+    public void Dispose()
+    {
+        InMemoryDatabaseCache.OnCategoriesDataChanged -= StateHasChanged;
+    }
+}
