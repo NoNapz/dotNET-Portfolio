@@ -32,7 +32,7 @@ app.UseStaticFiles();
 
 app.UseAuthorization();
 
-// added to test
+// added to test..
 app.UseRouting();
 
 app.UseCors("CorsPolicy");
