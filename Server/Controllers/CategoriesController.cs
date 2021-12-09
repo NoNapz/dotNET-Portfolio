@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Server.Data;
 using Shared.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Server.Controllers
 {
@@ -20,6 +22,7 @@ namespace Server.Controllers
         public async Task<IActionResult> Get()
         {
             List<Category> categories = await _appDBContext.Categories.ToListAsync();
+
             return Ok(categories);
         }
     }

@@ -11,20 +11,19 @@ namespace Server.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Call the base version of this model else we can an error later on
+            // Call the base version of this method as well, else we get an error later on.
             base.OnModelCreating(modelBuilder);
 
             Category[] categoriesToSeed = new Category[3];
 
             for (int i = 1; i < 4; i++)
             {
-                //do thing
                 categoriesToSeed[i - 1] = new Category
                 {
                     CategoryId = i,
-                    ThumbnailImagePath = "/uploads/placeholder.jpg",
+                    ThumbnailImagePath = "uploads/placeholder.jpg",
                     Name = $"Category {i}",
-                    Description = $"A description for category {i}"
+                    Description = $"A description of category {i}"
                 };
             }
 
