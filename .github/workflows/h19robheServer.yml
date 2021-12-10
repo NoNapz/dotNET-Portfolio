@@ -53,7 +53,7 @@ jobs:
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
-        app-name: RobinDevBlogServer
+        app-name: h19robheServer
         slot-name: 'production'
         publish-profile: ${{ secrets.H19ROBHESERVER_FFFF }}
         package: .
