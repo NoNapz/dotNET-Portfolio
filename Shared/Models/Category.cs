@@ -20,6 +20,5 @@ namespace Shared.Models
         public string Description { get; set; }
 
         public List<Post> Posts { get; set; }
-
     }
 }

@@ -25,7 +25,7 @@ namespace Shared.Models
 
         [Required]
         [MaxLength(32)]
-        ¨public string PublishDate { get; set; }
+        public string PublishDate { get; set; }
 
         [Required]
         public bool Published { get; set; }
@@ -35,7 +35,7 @@ namespace Shared.Models
         public string Author { get; set; }
 
         [Required]
-        public int CategoryID { get; set; }
+        public int CategoryId { get; set; }
         public Category Category { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace Server.Data
             // Call the base version of this method as well, else we get an error later on.
             base.OnModelCreating(modelBuilder);
 
-            #region MyRegion
+            #region Categories seed
 
             Category[] categoriesToSeed = new Category[3];
 
@@ -35,18 +35,18 @@ namespace Server.Data
             #endregion
 
             modelBuilder.Entity<Post>(
-                entitiy =>
+                entity =>
                 {
-                    entitiy.HasOne(post => post.Category)
+                    entity.HasOne(post => post.Category)
                     .WithMany(category => category.Posts)
-                    .HasForeignKey("CategoryID");
+                    .HasForeignKey("CategoryId");
                 });
 
             #region Posts seed
 
-            Post[] postToSeed = new Post[6];
+            Post[] postsToSeed = new Post[6];
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 1; i < 7; i++)
             {
                 string postTitle = string.Empty;
                 int categoryId = 0;
@@ -54,7 +54,7 @@ namespace Server.Data
                 switch (i)
                 {
                     case 1:
-                        postTitle = "First Post";
+                        postTitle = "First post";
                         categoryId = 1;
                         break;
                     case 2:
@@ -62,43 +62,42 @@ namespace Server.Data
                         categoryId = 2;
                         break;
                     case 3:
-                        postTitle = "Third Post";
+                        postTitle = "Third post";
                         categoryId = 3;
                         break;
                     case 4:
-                        postTitle = "Forth Post";
-                        categoryId = 4;
+                        postTitle = "Fourth post";
+                        categoryId = 1;
                         break;
                     case 5:
-                        postTitle = "Fifth Post";
-                        categoryId = 5;
+                        postTitle = "Fifth post";
+                        categoryId = 2;
                         break;
                     case 6:
-                        postTitle = "Sixth Post";
-                        categoryId = 6;
+                        postTitle = "Sixth post";
+                        categoryId = 3;
                         break;
                     default:
                         break;
                 }
 
-                postToSeed[i - 1] = new Post
+                postsToSeed[i - 1] = new Post
                 {
                     PostId = i,
                     ThumbnailImagePath = "uploads/placeholder.jpg",
                     Title = postTitle,
-                    Excerpt = $"This is the excerpt for post {1}, An excerpt is a little extraction from a larger piece of text. Sort of like a preview",
-                    Content = String.Empty,
+                    Excerpt = $"This is the excerpt for post {i}. An excerpt is a little extraction from a larger piece of text. Sort of like a preview.",
+                    Content = string.Empty,
                     PublishDate = DateTime.UtcNow.ToString("dd/MM/yyyy hh:mm"),
                     Published = true,
-                    Author = "Robin H",
-                    CategoryID = categoryId
+                    Author = "John Doe",
+                    CategoryId = categoryId
                 };
             }
 
-            modelBuilder.Entity<Post>().HasData(postToSeed);
+            modelBuilder.Entity<Post>().HasData(postsToSeed);
 
             #endregion
-
         }
     }
 }
